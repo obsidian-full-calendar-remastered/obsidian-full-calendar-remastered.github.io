@@ -1,6 +1,8 @@
 import '../styles/main.css';
 import { mountSiteChrome } from '../components/layout';
 import { getPaddleConfig } from '../config/paddle';
+import { hasSupportEmail, SITE } from '../config/site';
+import { trackEvent } from '../services/analytics';
 import { CLAIM_TOKEN_STORAGE_KEY } from '../services/paddleClient';
 
 interface ClaimReadyResponse {
@@ -50,6 +52,7 @@ function renderKeyCard(container: HTMLElement, licenseKey: string, planTier: 'pr
 
   const copyBtn = container.querySelector<HTMLButtonElement>('[data-copy-license-btn]');
   copyBtn?.addEventListener('click', () => {
+    trackEvent('license_copied', { plan_tier: planTier });
     void navigator.clipboard
       ?.writeText(licenseKey)
       .then(() => {
@@ -91,6 +94,7 @@ async function pollForLicenseKey(container: HTMLElement, claimToken: string): Pr
           } catch {
             // Ignore storage errors
           }
+          trackEvent('license_revealed', { plan_tier: data.plan_tier });
           renderKeyCard(container, data.license_key, data.plan_tier);
           return;
         }
@@ -104,12 +108,16 @@ async function pollForLicenseKey(container: HTMLElement, claimToken: string): Pr
     await sleep(POLL_INTERVAL_MS);
   }
 
+  const supportHint = hasSupportEmail()
+    ? ` If it does not arrive within 5 minutes, email <a href="mailto:${SITE.supportEmail}" style="color: var(--accent-bright); text-decoration: underline">${SITE.supportEmail}</a> from your checkout email address with your Paddle receipt number.`
+    : '';
+
   container.innerHTML = `
     <div class="callout">
       <div>
         <strong>Your key is on its way by email.</strong>
         It is taking a few extra seconds to provision. Check your inbox (and spam folder) for your
-        <code>fcr_live_</code> / <code>fcr_test_</code> activation key.
+        <code>fcr_live_</code> / <code>fcr_test_</code> activation key.${supportHint}
       </div>
     </div>
   `;

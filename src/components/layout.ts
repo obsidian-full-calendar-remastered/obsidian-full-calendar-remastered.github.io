@@ -1,4 +1,5 @@
 import { hasSupportEmail, NAV_ITEMS, SITE } from '../config/site';
+import { initSiteAnalytics, syncSessionProperties, trackEvent } from '../services/analytics';
 import { getCurrentTheme, initTheme, toggleTheme } from '../services/theme';
 
 export type PageId = 'home' | 'ai' | 'pricing' | 'success' | 'privacy' | 'terms' | 'refunds';
@@ -23,6 +24,7 @@ function buildNavLinkHtml(
 
 export function mountSiteChrome(activePage: PageId): void {
   const initialTheme = initTheme();
+  initSiteAnalytics();
 
   const headerMount = document.querySelector<HTMLElement>('[data-site-header]');
   if (headerMount) {
@@ -73,6 +75,8 @@ export function mountSiteChrome(activePage: PageId): void {
     themeBtn?.addEventListener('click', () => {
       const next = toggleTheme();
       themeBtn.innerHTML = renderThemeIcon(next);
+      trackEvent('toggled_theme', { theme: next });
+      window.setTimeout(syncSessionProperties, 100);
     });
 
     const menuBtn = headerMount.querySelector<HTMLButtonElement>('[data-mobile-menu-toggle]');
@@ -138,13 +142,22 @@ export function mountSiteChrome(activePage: PageId): void {
     `;
   }
 
-  // Hydrate any inline support contact placeholders on legal pages
+  // Hydrate any inline support contact placeholders on legal/FAQ pages
   const contactSlots = document.querySelectorAll<HTMLElement>('[data-support-contact]');
   for (const slot of contactSlots) {
     if (hasSupportEmail()) {
       slot.innerHTML = `<a href="mailto:${SITE.supportEmail}">${SITE.supportEmail}</a> or via <a href="${SITE.issuesUrl}" target="_blank" rel="noopener noreferrer">GitHub Issues</a>`;
     } else {
       slot.innerHTML = `<a href="${SITE.issuesUrl}" target="_blank" rel="noopener noreferrer">our GitHub repository</a>`;
+    }
+  }
+
+  const emailOnlySlots = document.querySelectorAll<HTMLElement>('[data-support-email]');
+  for (const slot of emailOnlySlots) {
+    if (hasSupportEmail()) {
+      slot.innerHTML = `<a href="mailto:${SITE.supportEmail}">${SITE.supportEmail}</a>`;
+    } else {
+      slot.innerHTML = `<a href="${SITE.issuesUrl}" target="_blank" rel="noopener noreferrer">GitHub Issues</a>`;
     }
   }
 

@@ -2,6 +2,7 @@ import '../styles/main.css';
 import { mountSiteChrome } from '../components/layout';
 import { getPaddleConfig, isPaddleConfigured } from '../config/paddle';
 import { PLANS, SITE, type PaidPlanId, type PlanSpec } from '../config/site';
+import { trackEvent } from '../services/analytics';
 import {
   fetchLocalizedPrices,
   onCheckoutCompleted,
@@ -114,7 +115,10 @@ async function initPricingPage(): Promise<void> {
     );
   }
 
+  let lastOpenedPlan: PaidPlanId | 'unknown' = 'unknown';
+
   onCheckoutCompleted(() => {
+    trackEvent('checkout_completed', { plan: lastOpenedPlan });
     setStatusBanner(
       'emerald',
       `<div><strong>Payment complete!</strong> Redirecting you to reveal your license key…</div>`
@@ -140,6 +144,9 @@ async function initPricingPage(): Promise<void> {
     btn.addEventListener('click', () => {
       const planId = btn.dataset.checkoutPlan as PaidPlanId | undefined;
       if (!planId) return;
+
+      lastOpenedPlan = planId;
+      trackEvent('checkout_opened', { plan: planId });
 
       const originalText = btn.textContent ?? 'Subscribe';
       btn.disabled = true;

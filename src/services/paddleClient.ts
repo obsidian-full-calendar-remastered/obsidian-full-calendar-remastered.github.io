@@ -19,14 +19,29 @@ export type LocalizedPriceMap = Partial<Record<PaidPlanId, LocalizedPrice>>;
 
 let paddlePromise: Promise<Paddle | null> | null = null;
 let checkoutCompletedListener: (() => void) | null = null;
+let checkoutErrorListener: ((message: string) => void) | null = null;
 
 export function onCheckoutCompleted(listener: () => void): void {
   checkoutCompletedListener = listener;
 }
 
+export function onCheckoutError(listener: (message: string) => void): void {
+  checkoutErrorListener = listener;
+}
+
 function handlePaddleEvent(event: PaddleEventData): void {
   if (event.name === 'checkout.completed') {
     checkoutCompletedListener?.();
+  } else if (event.name === 'checkout.error') {
+    console.error('[FCR Paddle] Checkout error event:', event);
+    const detail =
+      typeof event.data === 'object' && event.data !== null && 'detail' in event.data
+        ? String((event.data as { detail?: unknown }).detail ?? '')
+        : '';
+    checkoutErrorListener?.(
+      detail ||
+        'Paddle could not open checkout. Verify your Default Payment Link, client token, and Price IDs in Paddle Dashboard.'
+    );
   }
 }
 

@@ -5,6 +5,7 @@ import { PLANS, SITE, type PaidPlanId, type PlanSpec } from '../config/site';
 import {
   fetchLocalizedPrices,
   onCheckoutCompleted,
+  onCheckoutError,
   openPlanCheckout,
   type LocalizedPriceMap
 } from '../services/paddleClient';
@@ -64,6 +65,9 @@ function setStatusBanner(
   el.className = clsMap[kind];
   el.innerHTML = html;
   el.hidden = false;
+  if (kind === 'danger') {
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
 }
 
 function applyLocalizedPrices(prices: LocalizedPriceMap): void {
@@ -118,6 +122,10 @@ async function initPricingPage(): Promise<void> {
     window.setTimeout(() => {
       window.location.assign('/success/');
     }, 1200);
+  });
+
+  onCheckoutError(message => {
+    setStatusBanner('danger', `<div><strong>Paddle checkout error:</strong> ${message}</div>`);
   });
 
   // Bind checkout buttons

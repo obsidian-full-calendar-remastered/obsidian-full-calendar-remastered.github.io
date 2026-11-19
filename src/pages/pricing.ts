@@ -117,11 +117,17 @@ async function initPricingPage(): Promise<void> {
   onCheckoutCompleted(() => {
     setStatusBanner(
       'emerald',
-      `<div><strong>Payment complete!</strong> Redirecting you to activation instructions… Your license key is on its way to your email.</div>`
+      `<div><strong>Payment complete!</strong> Redirecting you to reveal your license key…</div>`
     );
     window.setTimeout(() => {
-      window.location.assign('/success/');
-    }, 1200);
+      let token = '';
+      try {
+        token = window.sessionStorage.getItem('fcr_pending_claim_token') ?? '';
+      } catch {
+        token = '';
+      }
+      window.location.assign(token ? `/success/#claim=${token}` : '/success/');
+    }, 1000);
   });
 
   onCheckoutError(message => {

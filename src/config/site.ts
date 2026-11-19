@@ -24,13 +24,13 @@ export const SITE = {
   docsUrl: 'https://obsidian-full-calendar-remastered.github.io/plugin-full-calendar/',
   agentDocsUrl:
     'https://obsidian-full-calendar-remastered.github.io/plugin-full-calendar/user/features/agent/',
-  gatewayUrl: 'https://gateway.destyleer.in.net',
+  gatewayUrl: 'https://gateway.full-calendar-remastered.in',
   /**
    * Leave blank until you are ready to publish a dedicated support address.
    * When populated (e.g. "support@full-calendar-remastered.in"), it automatically
    * appears in the footer and legal pages.
    */
-  supportEmail: ''
+  supportEmail: 'support@full-calendar-remastered.in'
 } as const;
 
 export function hasSupportEmail(): boolean {

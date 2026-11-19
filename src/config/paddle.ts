@@ -5,6 +5,7 @@ export type PaddleEnvironment = 'sandbox' | 'production';
 export interface PaddleConfig {
   environment: PaddleEnvironment;
   clientToken: string;
+  gatewayBaseUrl: string;
   priceIds: Record<PaidPlanId, string>;
 }
 
@@ -16,10 +17,15 @@ function readEnv(key: string): string {
 export function getPaddleConfig(): PaddleConfig {
   const rawEnv = readEnv('VITE_PADDLE_ENV').toLowerCase();
   const environment: PaddleEnvironment = rawEnv === 'production' ? 'production' : 'sandbox';
+  const defaultGateway =
+    environment === 'production'
+      ? 'https://gateway.full-calendar-remastered.in'
+      : 'https://staging-gateway.full-calendar-remastered.in';
 
   return {
     environment,
     clientToken: readEnv('VITE_PADDLE_CLIENT_TOKEN'),
+    gatewayBaseUrl: (readEnv('VITE_GATEWAY_URL') || defaultGateway).replace(/\/+$/, ''),
     priceIds: {
       pro: readEnv('VITE_PADDLE_PRICE_ID_PRO'),
       power: readEnv('VITE_PADDLE_PRICE_ID_POWER')

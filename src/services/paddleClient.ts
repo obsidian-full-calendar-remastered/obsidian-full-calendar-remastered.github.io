@@ -5,7 +5,7 @@ import {
   isPaddleConfigured,
   type PaddleConfig
 } from '../config/paddle';
-import { SITE, type PaidPlanId } from '../config/site';
+import type { PaidPlanId } from '../config/site';
 import { getCurrentTheme } from './theme';
 
 export interface LocalizedPrice {
@@ -119,6 +119,24 @@ export async function fetchLocalizedPrices(
   return result;
 }
 
+export const CLAIM_TOKEN_STORAGE_KEY = 'fcr_pending_claim_token';
+
+async function createOneTimeClaimToken(): Promise<{ claimToken: string; claimTokenHash: string }> {
+  const bytes = new Uint8Array(32);
+  window.crypto.getRandomValues(bytes);
+  const claimToken = Array.from(bytes)
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+
+  const encoded = new TextEncoder().encode(claimToken);
+  const digest = await window.crypto.subtle.digest('SHA-256', encoded);
+  const claimTokenHash = Array.from(new Uint8Array(digest))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+
+  return { claimToken, claimTokenHash };
+}
+
 export async function openPlanCheckout(
   planId: PaidPlanId,
   customerEmail?: string
@@ -137,19 +155,29 @@ export async function openPlanCheckout(
 
   const priceId = getPriceIdForPlan(planId, config);
   const trimmedEmail = customerEmail?.trim();
-  const successUrl =
-    window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-      ? `${window.location.origin}/success/`
-      : `${SITE.url}/success/`;
+
+  const { claimToken, claimTokenHash } = await createOneTimeClaimToken();
+  try {
+    window.sessionStorage.setItem(CLAIM_TOKEN_STORAGE_KEY, claimToken);
+  } catch {
+    // Continue even if sessionStorage is restricted; hash fragment carries the token client-side
+  }
+
+  const customData: Record<string, string> = {
+    claim_token_hash: claimTokenHash
+  };
+  if (trimmedEmail) {
+    customData.customer_email = trimmedEmail;
+  }
 
   paddle.Checkout.open({
     items: [{ priceId, quantity: 1 }],
+    customData,
     ...(trimmedEmail ? { customer: { email: trimmedEmail } } : {}),
     settings: {
       displayMode: 'overlay',
       theme: getCurrentTheme(),
-      locale: 'en',
-      successUrl
+      locale: 'en'
     }
   });
 }

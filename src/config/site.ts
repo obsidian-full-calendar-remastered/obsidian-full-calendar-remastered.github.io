@@ -44,10 +44,10 @@ export const PLANS: readonly PlanSpec[] = [
     tagline: 'Explore the Calendar Agent right inside Obsidian — no signup or card required.',
     fallbackPrice: '$0',
     cadence: 'one-time lifetime',
-    allowance: '500,000 credits (lifetime)',
+    allowance: '1,000,000 credits (lifetime)',
     ctaLabel: 'Start inside Obsidian',
     features: [
-      'Up to 500k input, 5M cached, or 125k output tokens',
+      'Up to 1M input, 10M cached, or 250k output tokens',
       '1 active device · 16k token context window',
       'Strictly GDPR-compliant & Zero Data Retention (EU)',
       'Approval-gated calendar creates, edits & deletes',

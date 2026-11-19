@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calendar AI Agent — Full Calendar Remastered</title>
+    <meta
+      name="description"
+      content="Strictly GDPR-compliant, Zero Data Retention AI Calendar Agent for Obsidian with approval-gated writes, transparent Weighted Token Credits, and free BYOK support."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      try {
+        if (localStorage.getItem('fcr-site-theme') === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch {}
+    </script>
+  </head>
+  <body data-page="ai">
+    <header data-site-header></header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-centered">
+          <div class="hero-badges">
+            <span class="badge badge-emerald">Strictly GDPR Compliant</span>
+            <span class="badge badge-accent">Zero Data Retention (ZDR)</span>
+          </div>
+          <h1>An AI Calendar Agent you can actually trust with your schedule.</h1>
+          <p class="hero-lead">
+            Schedule events, resolve conflicts, and organize your week in plain language — backed by
+            stateless EU inference, cryptographic device binding, and mandatory user approval on
+            every calendar write.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary btn-lg" href="/pricing/">Compare Plans &amp; Pricing</a>
+            <a
+              class="btn btn-secondary btn-lg"
+              href="https://obsidian-full-calendar-remastered.github.io/plugin-full-calendar/user/features/agent/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read Agent Docs ↗
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-compact">
+        <div class="container">
+          <div class="grid-3">
+            <article class="card">
+              <div class="card-icon emerald" aria-hidden="true">🔒</div>
+              <h3>Zero Prompt &amp; Event Storage</h3>
+              <p>
+                Requests are processed transiently in memory over stateless EU endpoints with API
+                model training disabled. Neither prompts nor calendar events are logged or saved.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">✅</div>
+              <h3>Proposal-First Write Gate</h3>
+              <p>
+                The agent can never silently modify or delete an event. Every create, update, or
+                delete is cryptographically hash-bound and requires your explicit click to apply.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">💾</div>
+              <h3>100% Local Chat History</h3>
+              <p>
+                Conversation transcripts and staged proposals stay inside your Obsidian vault
+                (<code>.obsidian/plugins/full-calendar-remastered/agent/</code>) — never in the cloud.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Transparent Weighted Token Credits (WTC)</h2>
+            <p>
+              No opaque “message limits” or surprise throttling. Your balance updates from real
+              provider token usage after every turn.
+            </p>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Token Type</th>
+                  <th>Credit Weight</th>
+                  <th>Why</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Uncached Input Token</td>
+                  <td><code>1 credit</code></td>
+                  <td>Baseline prompt &amp; calendar context tokens</td>
+                </tr>
+                <tr>
+                  <td>Cached Input Token</td>
+                  <td><code>0.1 credits</code> (10× cheaper)</td>
+                  <td>Repeated system prompts &amp; conversation history benefit from prompt caching</td>
+                </tr>
+                <tr>
+                  <td>Output Token</td>
+                  <td><code>4 credits</code></td>
+                  <td>Reflects actual LLM inference cost for generated replies &amp; tool calls</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-compact">
+        <div class="container">
+          <div class="section-header">
+            <h2>Managed AI vs. Bring Your Own Key (BYOK)</h2>
+            <p>Switch seamlessly between both modes anytime in Obsidian Settings → Integrations → Agent.</p>
+          </div>
+
+          <div class="grid-2">
+            <article class="card">
+              <span class="badge badge-accent" style="margin-bottom: 12px">Default · Zero Setup</span>
+              <h3>Free Trial &amp; Managed Plans</h3>
+              <p style="margin-bottom: 16px">
+                Works immediately out of the box with 500,000 free lifetime credits, strictly GDPR &amp;
+                ZDR compliant EU hosting, and optional Pro ($7/mo) or Power ($11/mo) subscriptions.
+              </p>
+              <a class="btn btn-primary btn-sm" href="/pricing/">See Managed Plans</a>
+            </article>
+
+            <article class="card">
+              <span class="badge badge-emerald" style="margin-bottom: 12px">Always Free</span>
+              <h3>Bring Your Own Key (BYOK)</h3>
+              <p style="margin-bottom: 16px">
+                Connect any OpenAI-compatible endpoint (OpenAI, Anthropic, Groq, OpenRouter, Ollama,
+                LM Studio) directly from your device with zero gateway traffic.
+              </p>
+              <a
+                class="btn btn-secondary btn-sm"
+                href="https://obsidian-full-calendar-remastered.github.io/plugin-full-calendar/user/features/agent/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                BYOK Setup Guide ↗
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer data-site-footer></footer>
+    <script type="module" src="/src/pages/staticEntry.ts"></script>
+  </body>
+</html>

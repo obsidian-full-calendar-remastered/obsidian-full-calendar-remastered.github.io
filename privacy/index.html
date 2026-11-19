@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy — Full Calendar Remastered</title>
+    <meta
+      name="description"
+      content="Privacy Policy for Full Calendar Remastered and its strictly GDPR-compliant, Zero Data Retention Managed AI service."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      try {
+        if (localStorage.getItem('fcr-site-theme') === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch {}
+    </script>
+  </head>
+  <body data-page="privacy">
+    <header data-site-header></header>
+
+    <main class="section">
+      <div class="container">
+        <article class="prose">
+          <div class="prose-header">
+            <span class="badge badge-emerald" style="margin-bottom: 12px">
+              GDPR &amp; Zero Data Retention
+            </span>
+            <h1>Privacy Policy</h1>
+            <p class="prose-meta">Effective date: November 2026 · full-calendar-remastered.in</p>
+          </div>
+
+          <p>
+            <strong>Full Calendar Remastered</strong> is a privacy-first calendar plugin for
+            Obsidian. Core calendar synchronization and note management run locally on your device.
+            We do not sell personal data, serve advertisements, or store your calendar events on our
+            servers.
+          </p>
+
+          <h2>1. Local-First Core Plugin</h2>
+          <ul>
+            <li>
+              <strong>Local Storage Only:</strong> Calendar configurations, OAuth tokens, and local
+              notes stay within your Obsidian vault and device storage.
+            </li>
+            <li>
+              <strong>Direct Provider Sync:</strong> Google Calendar, Google Tasks, CalDAV, and ICS
+              connections communicate directly over HTTPS/TLS between Obsidian and your chosen
+              provider.
+            </li>
+            <li>
+              <strong>Transient OAuth Exchange:</strong> When using the default OAuth client, a
+              stateless intermediary worker processes the authorization code solely in memory to
+              complete login and immediately discards it.
+            </li>
+          </ul>
+
+          <h2>2. Managed AI Service (Strictly GDPR Compliant &amp; Zero Data Retention)</h2>
+          <p>
+            When you use the optional Calendar Agent in <strong>Free trial and managed plans</strong>
+            mode (<code>https://gateway.destyleer.in.net</code>), the service adheres to strict
+            European GDPR data minimization and Zero Data Retention (ZDR) principles:
+          </p>
+          <ul>
+            <li>
+              <strong>Zero Prompt &amp; Calendar Content Storage:</strong> Prompts, assistant
+              responses, and calendar event details are processed transiently in memory and forwarded
+              to stateless EU-hosted AI inference endpoints with Zero Data Retention active and API
+              model training disabled. No prompt text, completion text, or calendar event content is
+              logged or persisted.
+            </li>
+            <li>
+              <strong>Local-Only Conversation History:</strong> Chat transcripts and staged event
+              proposals are stored exclusively in your vault
+              (<code>.obsidian/plugins/full-calendar-remastered/agent/</code>).
+            </li>
+            <li>
+              <strong>Cryptographic Device Binding:</strong> Devices authenticate using a locally
+              generated Web Crypto ECDSA P-256 keypair stored in Obsidian’s
+              <code>SecretStorage</code>. Paid license keys are stored server-side solely as one-way
+              <code>HMAC-SHA256</code> hashes.
+            </li>
+            <li>
+              <strong>Privacy-Safe Usage Accounting:</strong> To track Weighted Token Credit (WTC)
+              balances and prevent automated trial abuse, our gateway records only aggregate token
+              counts, credit ledger balances, and coarse daily subnet counters (IPv4 <code>/24</code>
+              or IPv6 <code>/48</code>). Raw client IP addresses are not stored.
+            </li>
+          </ul>
+
+          <h2>3. Bring Your Own Key (BYOK) Mode</h2>
+          <p>
+            If you switch the Calendar Agent to BYOK mode, requests travel directly from your device
+            to your chosen third-party or local endpoint (such as OpenAI, Anthropic, Groq, Ollama,
+            or LM Studio) without passing through our gateway, and that provider’s privacy policy
+            applies.
+          </p>
+
+          <h2>4. Payments &amp; Merchant of Record (Paddle)</h2>
+          <p>
+            Paid subscriptions (<strong>Pro</strong> and <strong>Power</strong>) are processed by
+            <strong>Paddle</strong> as our Merchant of Record. Paddle collects and processes payment
+            details, billing address, email, and applicable VAT/sales tax in accordance with Paddle’s
+            Privacy Policy. Full Calendar Remastered never receives or stores your credit card or
+            banking information. Your email address is used solely to deliver your license key and
+            essential subscription notices.
+          </p>
+
+          <h2>5. Your Rights &amp; Opt-Out</h2>
+          <p>
+            Under GDPR, you may request information about or deletion of any subscription license
+            record associated with your email, deactivate your devices anytime inside Obsidian
+            settings, or stop using Managed AI at any time.
+          </p>
+
+          <h2>6. Contact</h2>
+          <p>
+            Questions about this Privacy Policy or data protection can be directed to
+            <span data-support-contact></span>.
+          </p>
+        </article>
+      </div>
+    </main>
+
+    <footer data-site-footer></footer>
+    <script type="module" src="/src/pages/staticEntry.ts"></script>
+  </body>
+</html>

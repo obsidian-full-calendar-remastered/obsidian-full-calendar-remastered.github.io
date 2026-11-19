@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subscription Confirmed — Full Calendar Remastered</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      try {
+        if (localStorage.getItem('fcr-site-theme') === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch {}
+    </script>
+  </head>
+  <body data-page="success">
+    <header data-site-header></header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-centered">
+          <div class="hero-badges">
+            <span class="badge badge-emerald">✓ Payment Received</span>
+          </div>
+          <h1>Thank you for subscribing!</h1>
+          <p class="hero-lead">
+            Your Managed AI license key is being delivered to your checkout email address. Follow
+            the three steps below to activate it inside Obsidian.
+          </p>
+
+          <div class="step-list" style="text-align: left">
+            <article class="step-card">
+              <div class="step-number">1</div>
+              <h3>Check your email</h3>
+              <p style="margin-top: 8px; font-size: 0.92rem">
+                Look for your license key starting with <code>fcr_live_</code> (or
+                <code>fcr_test_</code> in sandbox). Check your spam folder if it does not arrive
+                within 1–2 minutes.
+              </p>
+            </article>
+
+            <article class="step-card">
+              <div class="step-number">2</div>
+              <h3>Open Obsidian Settings</h3>
+              <p style="margin-top: 8px; font-size: 0.92rem">
+                Go to <strong>Settings → Full Calendar Remastered → Integrations → Agent</strong>
+                and ensure <strong>Free trial and managed plans</strong> is selected.
+              </p>
+            </article>
+
+            <article class="step-card">
+              <div class="step-number">3</div>
+              <h3>Paste &amp; Activate</h3>
+              <p style="margin-top: 8px; font-size: 0.92rem">
+                Paste your license key into <strong>License key activation</strong> and click
+                <strong>Activate key</strong>. Your monthly credit balance appears immediately.
+              </p>
+            </article>
+          </div>
+
+          <div class="hero-actions" style="margin-top: 36px">
+            <a
+              class="btn btn-primary btn-lg"
+              href="https://obsidian-full-calendar-remastered.github.io/plugin-full-calendar/user/features/agent/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open Agent Guide ↗
+            </a>
+            <a class="btn btn-secondary btn-lg" href="/">Back to Home</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer data-site-footer></footer>
+    <script type="module" src="/src/pages/staticEntry.ts"></script>
+  </body>
+</html>

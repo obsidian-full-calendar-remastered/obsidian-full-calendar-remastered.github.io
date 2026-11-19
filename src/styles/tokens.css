@@ -1,0 +1,89 @@
+:root {
+  color-scheme: dark;
+
+  /* Surface hierarchy (Obsidian-inspired dark) */
+  --bg-canvas: #0b0d14;
+  --bg-surface: #121521;
+  --bg-surface-elevated: #181c2c;
+  --bg-surface-hover: #1e2336;
+  --bg-glass: rgba(11, 13, 20, 0.78);
+
+  /* Text hierarchy */
+  --text-primary: #f4f6fb;
+  --text-secondary: #a4adc4;
+  --text-muted: #76809b;
+
+  /* Brand & semantic accents */
+  --accent: #8b5cf6;
+  --accent-bright: #a78bfa;
+  --accent-deep: #6d28d9;
+  --accent-soft: rgba(139, 92, 246, 0.14);
+  --accent-border: rgba(167, 139, 250, 0.35);
+
+  --emerald: #34d399;
+  --emerald-soft: rgba(52, 211, 153, 0.12);
+  --emerald-border: rgba(52, 211, 153, 0.32);
+
+  --amber: #fbbf24;
+  --amber-soft: rgba(251, 191, 36, 0.12);
+  --amber-border: rgba(251, 191, 36, 0.32);
+
+  --danger: #f87171;
+  --danger-soft: rgba(248, 113, 113, 0.12);
+
+  /* Borders & shadows */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --shadow-card: 0 12px 32px -12px rgba(0, 0, 0, 0.55);
+  --shadow-glow: 0 0 60px -15px rgba(139, 92, 246, 0.35);
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Spacing & radii */
+  --container-max: 1140px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+
+  --transition-fast: 150ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --transition-base: 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bg-canvas: #f8f9fc;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #f1f3f9;
+  --bg-surface-hover: #eaedf6;
+  --bg-glass: rgba(248, 249, 252, 0.82);
+
+  --text-primary: #111625;
+  --text-secondary: #4a536b;
+  --text-muted: #6e7791;
+
+  --accent: #7c3aed;
+  --accent-bright: #6d28d9;
+  --accent-deep: #5b21b6;
+  --accent-soft: rgba(124, 58, 237, 0.1);
+  --accent-border: rgba(124, 58, 237, 0.3);
+
+  --emerald: #059669;
+  --emerald-soft: rgba(5, 150, 105, 0.1);
+  --emerald-border: rgba(5, 150, 105, 0.28);
+
+  --amber: #b45309;
+  --amber-soft: rgba(217, 119, 6, 0.1);
+  --amber-border: rgba(217, 119, 6, 0.3);
+
+  --danger: #dc2626;
+  --danger-soft: rgba(220, 38, 38, 0.1);
+
+  --border-subtle: rgba(17, 22, 37, 0.08);
+  --border-strong: rgba(17, 22, 37, 0.16);
+  --shadow-card: 0 10px 28px -14px rgba(17, 22, 37, 0.14);
+  --shadow-glow: 0 0 50px -15px rgba(124, 58, 237, 0.22);
+}

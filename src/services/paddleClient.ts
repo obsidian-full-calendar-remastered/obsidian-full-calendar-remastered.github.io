@@ -120,6 +120,18 @@ export async function fetchLocalizedPrices(
 }
 
 export const CLAIM_TOKEN_STORAGE_KEY = 'fcr_pending_claim_token';
+let inMemoryClaimToken = '';
+
+export function getPendingClaimToken(): string {
+  if (inMemoryClaimToken) {
+    return inMemoryClaimToken;
+  }
+  try {
+    return window.sessionStorage.getItem(CLAIM_TOKEN_STORAGE_KEY) ?? '';
+  } catch {
+    return '';
+  }
+}
 
 async function createOneTimeClaimToken(): Promise<{ claimToken: string; claimTokenHash: string }> {
   const bytes = new Uint8Array(32);
@@ -157,10 +169,11 @@ export async function openPlanCheckout(
   const trimmedEmail = customerEmail?.trim();
 
   const { claimToken, claimTokenHash } = await createOneTimeClaimToken();
+  inMemoryClaimToken = claimToken;
   try {
     window.sessionStorage.setItem(CLAIM_TOKEN_STORAGE_KEY, claimToken);
   } catch {
-    // Continue even if sessionStorage is restricted; hash fragment carries the token client-side
+    // Continue even if sessionStorage is restricted; in-memory token + hash fragment carry it
   }
 
   const customData: Record<string, string> = {

@@ -1,4 +1,4 @@
-import type { PaidPlanId } from './site';
+import { SITE, type PaidPlanId } from './site';
 
 export type PaddleEnvironment = 'sandbox' | 'production';
 
@@ -19,7 +19,7 @@ export function getPaddleConfig(): PaddleConfig {
   const environment: PaddleEnvironment = rawEnv === 'production' ? 'production' : 'sandbox';
   const defaultGateway =
     environment === 'production'
-      ? 'https://gateway.full-calendar-remastered.in'
+      ? SITE.gatewayUrl
       : 'https://staging-gateway.full-calendar-remastered.in';
 
   return {

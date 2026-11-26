@@ -71,10 +71,11 @@
           <ul>
             <li>
               <strong>Zero Prompt &amp; Calendar Content Storage:</strong> Prompts, assistant
-              responses, and calendar event details are processed transiently in memory and forwarded
-              to stateless EU-hosted AI inference endpoints with Zero Data Retention active and API
-              model training disabled. No prompt text, completion text, or calendar event content is
-              logged or persisted.
+              responses, cached calendar event details, and optional weather forecasts (when
+              enabled) are processed transiently in memory and forwarded to stateless EU-hosted AI
+              inference endpoints with Zero Data Retention active and API model training disabled.
+              The agent never accesses or transmits your Obsidian vault notes or ActivityWatch logs,
+              and no prompt text, completion text, or calendar event content is logged or persisted.
             </li>
             <li>
               <strong>Local-Only Conversation History:</strong> Chat transcripts and staged event
@@ -98,9 +99,8 @@
           <h2>3. Bring Your Own Key (BYOK) Mode</h2>
           <p>
             If you switch the Calendar Agent to BYOK mode, requests travel directly from your device
-            to your chosen third-party or local endpoint (such as OpenAI, Anthropic, Groq, Ollama,
-            or LM Studio) without passing through our gateway, and that provider’s privacy policy
-            applies.
+            to your chosen OpenAI-compatible endpoint (cloud or local) without passing through our
+            gateway, and that provider’s privacy policy applies.
           </p>
 
           <h2>4. Payments &amp; Merchant of Record (Paddle)</h2>

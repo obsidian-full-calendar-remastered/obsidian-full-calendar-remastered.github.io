@@ -5,11 +5,21 @@ import { PLANS, SITE, type PaidPlanId, type PlanSpec } from '../config/site';
 import { trackEvent } from '../services/analytics';
 import {
   fetchLocalizedPrices,
+  getPendingClaimToken,
   onCheckoutCompleted,
   onCheckoutError,
   openPlanCheckout,
   type LocalizedPriceMap
 } from '../services/paddleClient';
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
 function isPaidPlan(id: PlanSpec['id']): id is PaidPlanId {
   return id === 'pro' || id === 'power';
@@ -44,7 +54,7 @@ function renderPlanCard(plan: PlanSpec, highlightedPlan: string | null): string 
       <div class="pricing-tax-note" data-price-tax="${plan.id}">
         ${isPaidPlan(plan.id) ? 'USD base price · localized at checkout' : 'No credit card required'}
       </div>
-      <div class="pricing-allowance">${plan.allowance}</div>
+      <div class="pricing-allowance">${plan.allowance}<span class="pricing-estimate">${plan.estimatedUsage}</span></div>
       <ul class="pricing-features">${featuresHtml}</ul>
       ${ctaHtml}
     </article>
@@ -95,6 +105,12 @@ async function initPricingPage(): Promise<void> {
     grid.innerHTML = PLANS.map(plan => renderPlanCard(plan, requestedPlan)).join('');
   }
 
+  // Smoothly scroll to deep-linked plan immediately after render (before network calls)
+  if (requestedPlan === 'pro' || requestedPlan === 'power') {
+    const target = document.querySelector<HTMLElement>(`[data-plan-card="${requestedPlan}"]`);
+    target?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
   const emailInput = document.querySelector<HTMLInputElement>('[data-checkout-email]');
   if (emailInput && prefillEmailParam) {
     emailInput.value = prefillEmailParam;
@@ -111,7 +127,7 @@ async function initPricingPage(): Promise<void> {
   } else if (!configured) {
     setStatusBanner(
       'info',
-      `<div><strong>Paddle Checkout Setup Pending:</strong> Configure <code>VITE_PADDLE_CLIENT_TOKEN</code>, <code>VITE_PADDLE_PRICE_ID_PRO</code>, and <code>VITE_PADDLE_PRICE_ID_POWER</code> in <code>.env</code> (or GitHub Actions variables) to activate live localized pricing and overlay checkout.</div>`
+      `<div><strong>Checkout Temporarily Unavailable:</strong> Online subscription checkout is currently being configured. You can still start the free trial or use BYOK inside Obsidian anytime.</div>`
     );
   }
 
@@ -124,18 +140,16 @@ async function initPricingPage(): Promise<void> {
       `<div><strong>Payment complete!</strong> Redirecting you to reveal your license key…</div>`
     );
     window.setTimeout(() => {
-      let token = '';
-      try {
-        token = window.sessionStorage.getItem('fcr_pending_claim_token') ?? '';
-      } catch {
-        token = '';
-      }
+      const token = getPendingClaimToken();
       window.location.assign(token ? `/success/#claim=${token}` : '/success/');
     }, 1000);
   });
 
   onCheckoutError(message => {
-    setStatusBanner('danger', `<div><strong>Paddle checkout error:</strong> ${message}</div>`);
+    setStatusBanner(
+      'danger',
+      `<div><strong>Paddle checkout error:</strong> ${escapeHtml(message)}</div>`
+    );
   });
 
   // Bind checkout buttons
@@ -156,7 +170,10 @@ async function initPricingPage(): Promise<void> {
       void openPlanCheckout(planId, email)
         .catch(err => {
           const message = err instanceof Error ? err.message : 'Unable to open checkout.';
-          setStatusBanner('danger', `<div><strong>Checkout unavailable:</strong> ${message}</div>`);
+          setStatusBanner(
+            'danger',
+            `<div><strong>Checkout unavailable:</strong> ${escapeHtml(message)}</div>`
+          );
         })
         .finally(() => {
           btn.disabled = false;
@@ -173,12 +190,6 @@ async function initPricingPage(): Promise<void> {
     } catch (err) {
       console.warn('[FCR Paddle] PricePreview fallback to USD:', err);
     }
-  }
-
-  // Smoothly scroll to deep-linked plan if ?plan=pro or ?plan=power
-  if (requestedPlan === 'pro' || requestedPlan === 'power') {
-    const target = document.querySelector<HTMLElement>(`[data-plan-card="${requestedPlan}"]`);
-    target?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }
 

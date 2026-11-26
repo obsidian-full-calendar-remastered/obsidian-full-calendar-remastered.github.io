@@ -8,6 +8,7 @@ export interface PlanSpec {
   fallbackPrice: string;
   cadence: string;
   allowance: string;
+  estimatedUsage: string;
   badge?: string;
   featured?: boolean;
   ctaLabel: string;
@@ -45,10 +46,11 @@ export const PLANS: readonly PlanSpec[] = [
     fallbackPrice: '$0',
     cadence: 'one-time lifetime',
     allowance: '1,000,000 credits (lifetime)',
-    ctaLabel: 'Start inside Obsidian',
+    estimatedUsage: 'Est. ~100–200 typical calendar requests',
+    ctaLabel: 'Setup Guide in Obsidian',
     features: [
-      'Up to 1M input, 10M cached, or 250k output tokens',
-      '1 active device · 16k token context window',
+      'Up to 1M input, 10M cached, or 250K output tokens',
+      '1 active device · 16K token context window',
       'Strictly GDPR-compliant & Zero Data Retention (EU)',
       'Approval-gated calendar creates, edits & deletes',
       'No account, credit card, or API key required'
@@ -57,17 +59,18 @@ export const PLANS: readonly PlanSpec[] = [
   {
     id: 'pro',
     name: 'Pro',
-    tagline: 'Ideal for daily personal scheduling, vault planning, and multi-device workflows.',
+    tagline: 'Covers your managed EU AI usage and directly funds Full Calendar Remastered.',
     fallbackPrice: '$7',
     cadence: '/ month',
     allowance: '10,000,000 credits / month',
+    estimatedUsage: 'Est. ~1,000–2,000 typical requests / month',
     badge: 'Most Popular',
     featured: true,
     ctaLabel: 'Subscribe to Pro',
     features: [
       'Up to 10M input, 100M cached, or 2.5M output tokens',
-      '3 active devices · 32k token context window',
-      'Monthly allowance resets every billing cycle',
+      '3 active devices · 32K token context window',
+      'Pre-tuned for FCR tool-calling · 10× cached token discount',
       'Strictly GDPR-compliant & Zero Data Retention (EU)',
       'Instant license key emailed after checkout'
     ]
@@ -75,14 +78,15 @@ export const PLANS: readonly PlanSpec[] = [
   {
     id: 'power',
     name: 'Power',
-    tagline: 'Built for heavy daily agent usage across all your Obsidian vaults and devices.',
+    tagline: 'High-volume managed EU AI for heavy daily scheduling across all your devices.',
     fallbackPrice: '$11',
     cadence: '/ month',
     allowance: '24,000,000 credits / month',
+    estimatedUsage: 'Est. ~2,400–4,800 typical requests / month',
     ctaLabel: 'Subscribe to Power',
     features: [
       'Up to 24M input, 240M cached, or 6M output tokens',
-      '5 active devices · 32k token context window',
+      '5 active devices · 32K token context window',
       'High-volume allowance with prorated upgrades',
       'Strictly GDPR-compliant & Zero Data Retention (EU)',
       'Instant license key emailed after checkout'
